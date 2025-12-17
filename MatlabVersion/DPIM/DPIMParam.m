@@ -1,4 +1,4 @@
-classdef SSMParam
+classdef DPIMParam
    properties (SetAccess = public)
        MasterMode; 
        max_order; 
@@ -19,7 +19,7 @@ classdef SSMParam
 
    end
    methods 
-       function obj = SSMParam(MasterMode,max_order,max_orderNA,ComputeMode,Fmodes,Fmult,Ffreq,omega_mul,nForce,style,Freedof)
+       function obj = DPIMParam(MasterMode,max_order,max_orderNA,ComputeMode,Fmodes,Fmult,Ffreq,omega_mul,nForce,style,Freedof)
           obj.MasterMode = MasterMode;
           obj.max_order = max_order;
           obj.max_orderNA = max_orderNA; 

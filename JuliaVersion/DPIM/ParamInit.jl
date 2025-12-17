@@ -18,7 +18,7 @@ end
 """
 fills parametrization structure
 """
-function initParametrisation!(info::SSMParam)
+function initParametrisation!(info::DPIMParam)
 
   Cp = [Parametrisation() for i in 0:info.max_order]
   for p in 1:info.max_order
@@ -37,7 +37,7 @@ function initParametrisation!(info::SSMParam)
 """
 creates multiexponents and looks for conjugates  
 """
-function indexset(info::SSMParam,p::Int64)
+function indexset(info::DPIMParam,p::Int64)
 
 nz=info.nz
 nzf=info.nzforce  

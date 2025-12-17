@@ -7,7 +7,7 @@ This function populates the 'real' coefficient matrices (Wr, fr) directly with
 This approach assumes that downstream functions are aware that these coefficients 
   correspond to the complex variables (z_k, z̄_k), and not the real variables (x_k, y_k).
 """
-function populate_with_complex_representation!(Cp::Vector{Parametrisation}, info::SSMParam)
+function populate_with_complex_representation!(Cp::Vector{Parametrisation}, info::DPIMParam)
     for p in 1:info.max_order
         if size(Cp[p].Wr) != size(Cp[p].W) || size(Cp[p].fr) != size(Cp[p].f)
             error("dimension mismatch: Wr/fr and W/f sizes are inconsistent at p=$p.")
@@ -17,7 +17,7 @@ function populate_with_complex_representation!(Cp::Vector{Parametrisation}, info
     end
 end
 
-function realification!(Cp::Vector{Parametrisation},info::SSMParam)
+function realification!(Cp::Vector{Parametrisation},info::DPIMParam)
 
   for p in 1:info.max_order
     for i in 1:Cp[p].nc
@@ -38,7 +38,7 @@ function realification!(Cp::Vector{Parametrisation},info::SSMParam)
 end  
 
 function recursive_C2R!(Ivec::Vector{Int64},p::Int64,pos::Int64,posinit::Int64,Avec::Vector{Int64},
-                             coeff::ComplexF64,Cp::Parametrisation,info::SSMParam)
+                             coeff::ComplexF64,Cp::Parametrisation,info::DPIMParam)
 
   nzhalf=Int(info.nz/2)
   nzfhalf=Int(info.nzforce/2)                           

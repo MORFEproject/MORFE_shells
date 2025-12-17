@@ -1,8 +1,8 @@
-function Cp = Populate_With_Complex_Representation(Cp, SSMParams)
+function Cp = Populate_With_Complex_Representation(Cp, DPIMParams)
     tic;
     disp('Begin populating coefficients with complex representation (identity mapping)');
 
-    for p = 1 : SSMParams.max_order
+    for p = 1 : DPIMParams.max_order
         Cp{p}.Wr = Cp{p}.W;
         Cp{p}.fr = Cp{p}.f;
     end

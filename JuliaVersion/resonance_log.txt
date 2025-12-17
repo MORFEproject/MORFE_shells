@@ -1,8 +1,80 @@
 Detected: Internal Resonance
+Polynomial Order: 1
+Frequency Check: conj(λ3) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 1
+Frequency Check: conj(λ4) ≈ conj(λ1)
+
+Detected: Internal Resonance
 Polynomial Order: 2
 Frequency Check: 2*λ1 ≈ λ2
 
 Detected: Internal Resonance
 Polynomial Order: 2
 Frequency Check: λ1 + conj(λ2) ≈ conj(λ1)
+
+Detected: Internal Resonance
+Polynomial Order: 2
+Frequency Check: λ1 + conj(λ3) ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 2
+Frequency Check: λ2 + conj(λ4) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 2
+Frequency Check: 2*conj(λ3) ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: 2*λ1 + conj(λ1) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: 2*λ1 + conj(λ4) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + λ2 + conj(λ1) ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + λ2 + conj(λ2) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + λ2 + conj(λ4) ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + conj(λ1) + conj(λ3) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + conj(λ2) + conj(λ4) ≈ conj(λ2)
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + conj(λ3) + conj(λ4) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ1 + 2*conj(λ4) ≈ conj(λ1)
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: 2*λ2 + conj(λ2) ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ2 + conj(λ2) + conj(λ3) ≈ λ1
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: λ2 + conj(λ3) + conj(λ4) ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 3
+Frequency Check: 2*conj(λ3) + conj(λ4) ≈ λ1
 

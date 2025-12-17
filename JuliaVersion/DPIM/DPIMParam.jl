@@ -1,4 +1,4 @@
-struct SSMParam
+struct DPIMParam
     Φ::Array{Int64,1}
     max_order::Int64
     max_orderNA::Int64
@@ -18,7 +18,7 @@ struct SSMParam
 
 end
 
-function SSMParamInitShell(MeshInfo::MeshShell)
+function DPIMParamInitShell(MeshInfo::MeshShell)
     Φ = [1,2] # master mode selection
     max_order = 3 # order for autonomous
     max_orderNA = 3 # order for non-autonomous
@@ -26,7 +26,7 @@ function SSMParamInitShell(MeshInfo::MeshShell)
     Fmodes = [1] # excitation mode index
     Fmult = (0.5)*[0.1]
     Ffreq = 1
-    nzforce = 0 # number of excitation forces (note that the state space expression is used in the program, even if it is 1, it will be decomposed into 2 conjugates)
+    nzforce = 2 # number of excitation forces (note that the state space expression is used in the program, even if it is 1, it will be decomposed into 2 conjugates)
     omega_mul = 1.0 # a certain multiple frequency parameter
     style = "c" # complex form "c", graphical form "g"
     nK = MeshInfo.NFREEDOF
@@ -35,5 +35,5 @@ function SSMParamInitShell(MeshInfo::MeshShell)
     nz = 2 * length(Φ)
     nm = length(Φ)
     nMat = nA + 2 * length(Φ)
-    return SSMParam(Φ, max_order, max_orderNA, neig, Fmodes, Fmult, Ffreq, nzforce, omega_mul, style, nK, nA, nrom, nz, nm, nMat)
+    return DPIMParam(Φ, max_order, max_orderNA, neig, Fmodes, Fmult, Ffreq, nzforce, omega_mul, style, nK, nA, nrom, nz, nm, nMat)
 end

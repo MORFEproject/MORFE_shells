@@ -3,7 +3,7 @@ using Printf
 function homological_HALF!(Sol::Vector{ComplexF64}, Rhs::Vector{ComplexF64}, Mat::SparseMatrixCSC{ComplexF64},
                            Λ::Vector{ComplexF64}, Cp::Vector{Parametrisation}, p::Int64, Apos::Int64,
                            M::SparseMatrixCSC{Float64}, K::SparseMatrixCSC{Float64}, C::SparseMatrixCSC{Float64},
-                           AY::Matrix{ComplexF64}, info::SSMParam, MatParams::MaterialParamShell,
+                           AY::Matrix{ComplexF64}, info::DPIMParam, MatParams::MaterialParamShell,
                            logfile::IOStream)
 
     σ = dot(Cp[p].Avector[Apos], Λ[1:info.nrom])
@@ -105,7 +105,7 @@ end
 function homological_FULL!(Sol::Vector{ComplexF64},Rhs::Vector{ComplexF64},Mat::SparseMatrixCSC{ComplexF64},
                            Λ::Vector{ComplexF64},Cp::Parametrisation,Apos::Int64,
                            M::SparseMatrixCSC{Float64},K::SparseMatrixCSC{Float64},C::SparseMatrixCSC{Float64},
-                           AY::Matrix{ComplexF64},XTA::Matrix{ComplexF64},info::SSMParam)
+                           AY::Matrix{ComplexF64},XTA::Matrix{ComplexF64},info::DPIMParam)
 
                             
   σ=dot(Cp.Avector[Apos],Λ[1:info.nrom])
@@ -160,7 +160,7 @@ function homological_FULL!(Sol::Vector{ComplexF64},Rhs::Vector{ComplexF64},Mat::
 
 end
 
-function fillWf!(Cp::Vector{Parametrisation},p::Int64,info::SSMParam)
+function fillWf!(Cp::Vector{Parametrisation},p::Int64,info::DPIMParam)
 
   for p1 in 2:p-1, p2 in 2:p-1
     if (p1+p2)==p+1  
@@ -185,7 +185,7 @@ function fillWf!(Cp::Vector{Parametrisation},p::Int64,info::SSMParam)
 end 
     
 
-function fillWfnonaut!(Cp::Vector{Parametrisation},p::Int64,Avector::Vector{Int64},ind_rhs::Int64,info::SSMParam)
+function fillWfnonaut!(Cp::Vector{Parametrisation},p::Int64,Avector::Vector{Int64},ind_rhs::Int64,info::DPIMParam)
 
   for r in info.nz+1:info.nrom
     if Avector[r]>0

@@ -1,4 +1,4 @@
-function dpim(mesh::MeshShell, info::SSMParam, MatParams::MaterialParamShell)
+function dpim(mesh::MeshShell, info::DPIMParam, MatParams::MaterialParamShell)
   # initialize directories
   println("Initializing directories")
   OutputName = "Output"

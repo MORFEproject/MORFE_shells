@@ -2,7 +2,7 @@
 clear
 clc
 restoredefaultpath;
-InitModule('RammeShell','SSM');
+InitModule('RammeShell','DPIM');
 NodeFile = ".\NumericalExample\ShallowShell_M\NLIST.lis";
 ElementFile = ".\NumericalExample\ShallowShell_M\ELIST.lis";
 addThicknessColumn(NodeFile, 'TestThickness.txt', 0.01, 0.01);
@@ -34,14 +34,14 @@ Ffreq = 1;
 nForce = 1;
 omega_mul = 1; 
 style = 'c'; % DPIM style (complex norm form:c; real norm form:r; graph style:g)
-SSMParams = SSMParam(MasterMode,max_order,max_orderNA,...
+DPIMParams = DPIMParam(MasterMode,max_order,max_orderNA,...
     ComputeMode,Fmodes,Fmult,Ffreq,omega_mul,nForce,...
     style,Mesh.FreedofNum);
 [K,M] = AssembleKM(Mesh, MatParams);
-[Phi, Lambda] = eigs(K(Mesh.Freedof,Mesh.Freedof),M(Mesh.Freedof,Mesh.Freedof),SSMParams.ComputeMode,'sm');
+[Phi, Lambda] = eigs(K(Mesh.Freedof,Mesh.Freedof),M(Mesh.Freedof,Mesh.Freedof),DPIMParams.ComputeMode,'sm');
 PhiFull = zeros(Mesh.Sdof,ComputeMode);
 PhiFull(Mesh.Freedof,:) = Phi;
-for i = 1 : SSMParams.ComputeMode
+for i = 1 : DPIMParams.ComputeMode
     PhiSelectFull = PhiFull(:, i);
     PhiSelectFull = reshape(PhiSelectFull, 6, []);
     if sum(PhiSelectFull(1:3,:),"all")<0 || abs(min(PhiSelectFull(1:3,:),[],'all'))>abs(max(PhiSelectFull(1:3,:),[],'all'))
@@ -50,7 +50,6 @@ for i = 1 : SSMParams.ComputeMode
 end
 PhiSelectFull = PhiFull(:, 2);
 PhiSelectFull = reshape(PhiSelectFull, 6, []);
-% PlotDeformation(Mesh, PhiSelectFull', 0.5);
 PlotModalShape(Mesh, Phi, ComputeMode, 1, 9); % plot modal shape
 Lambda = diag(Lambda);
 freq = sqrt(real(Lambda)); 
@@ -59,14 +58,14 @@ ForceVector = zeros(Mesh.Sdof,1);
 ForceVector(Mesh.ForceDof) = Fmult;
 Mesh.ForceVector = ForceVector(Mesh.Freedof); 
 %% ========= DPIM routine =====
-[Cp, TargetFreq] = ComputesParametrizationHalf(Mesh,SSMParams,MatParams);
-Cp = Realification(Cp,SSMParams);
+[Cp, TargetFreq] = ComputesParametrizationHalf(Mesh,DPIMParams,MatParams);
+Cp = Realification(Cp,DPIMParams);
 %% ========= Record inverse mapping parameters ====================
-howmany = count_terms_dyn(Cp,SSMParams);
+howmany = count_terms_dyn(Cp,DPIMParams);
 [mappings_disp,mappings_vel,mappings_modal_disp,mappings_modal_vel,Avector,fdyn] = ...
-    store_dyn_and_map(Mesh,MatParams,SSMParams,Cp,howmany);
+    store_dyn_and_map(Mesh,MatParams,DPIMParams,Cp,howmany);
 %% ========= To calculate the Frequency Response Function using the harmonic balance method ====================
-rdyn = write_rdyn(SSMParams,Cp);
+rdyn = write_rdyn(DPIMParams,Cp);
 % [system, HBParam, Om_HB,Q_HB,Ualpmlitude,~,StableSystem] = ...
 %     RunHBMethod(HB_number, Frequency_start, Frequency_end, Arclength_size, Scaling_switch, HB_type);
 %     HB_number: Number of HB (Harmonic Balance) superpositions;
@@ -78,7 +77,7 @@ rdyn = write_rdyn(SSMParams,Cp);
 %     HB_type: AdaptiveArclength: Adaptive arc length. 
 %              NLvib: See the open-source program by Krack et al. for details.
 [system, HBParam, Om_HB,Q_HB,Ualpmlitude,~,StableSystem] = ...
-    RunHBMethod(20, TargetFreq(1) * 0.95, TargetFreq(1) * 1.05, 1e-5, 1, 'AdaptiveArclength');
+    RunHBMethod(20, TargetFreq(1) * 0.95, TargetFreq(1) * 1.05, 1e-4, 1, 'AdaptiveArclength');
 % ref: Krack M, Gross J. Harmonic balance for nonlinear vibration
 % problems[M]. Cham: Springer International Publishing, 2019. 
 %% ROM's FRF figure

@@ -1,4 +1,4 @@
-function [Cp,Sol,Rhs,Mat,Tri,AY,XTA] = SSMParamFirstOrderHalf(SSMParams,MatParams,ForceVector, Cp,freq,Phi,K,M,C)
+function [Cp,Sol,Rhs,Mat,Tri,AY,XTA] = DPIMParamFirstOrderHalf(SSMParams,MatParams,ForceVector, Cp,freq,Phi,K,M,C)
     disp(["Order 1"])
     
     Rhs = zeros(SSMParams.nK+SSMParams.nz,1);
@@ -52,7 +52,5 @@ function [Cp,Sol,Rhs,Mat,Tri,AY,XTA] = SSMParamFirstOrderHalf(SSMParams,MatParam
        end
            [Sol,Rhs,Mat,Cp] = ...
            homological_HALF(Rhs,Mat,Tri,Cp,1,SSMParams.nz+i,M,K,C,AY,SSMParams,MatParams);
-           % [Sol_FULL,Rhs_FULL,Mat_FULL,Cp{1}] = ...
-           %     homological_Full(Rhs_FULL,Mat_FULL,Tri,Cp{1},SSMParams.nz+i,M,K,C,AY,XTA,SSMParams);
     end
 end

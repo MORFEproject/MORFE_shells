@@ -12,8 +12,8 @@ function Cp = fillrhsH(Mesh,MatParams,Cp,p)
                                     vector1 = Cp{p1}.W(:,i);
                                     vector2 = Cp{p2}.W(:,j);
                                     vector3 = Cp{p3}.W(:,k);
-                                    % Cp{p} = assemble_H(Mesh,MatParams,Cp{p},pos,vector1,vector2,vector3);
-                                    Cp{p} = assemble_H_mex(Mesh,MatParams,Cp{p},pos,vector1,vector2,vector3);
+                                    Cp{p} = assemble_H(Mesh,MatParams,Cp{p},pos,vector1,vector2,vector3);
+                                    % Cp{p} = assemble_H_mex(Mesh,MatParams,Cp{p},pos,vector1,vector2,vector3);
                                 end
                             end
                         end

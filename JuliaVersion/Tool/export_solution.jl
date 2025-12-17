@@ -1,4 +1,4 @@
-function count_terms_dyn(Cp::Vector{Parametrisation},info::SSMParam)
+function count_terms_dyn(Cp::Vector{Parametrisation},info::DPIMParam)
     # Routine that evaluates how many terms are present
     howmany=0
     for p in 1:info.max_order   # for every order
@@ -9,7 +9,7 @@ function count_terms_dyn(Cp::Vector{Parametrisation},info::SSMParam)
     return howmany
 end
 
-function store_dyn_and_map(Cp::Vector{Parametrisation},info::SSMParam,howmany::Integer, mesh::MeshShell, MatParams::MaterialParamShell)
+function store_dyn_and_map(Cp::Vector{Parametrisation},info::DPIMParam,howmany::Integer, mesh::MeshShell, MatParams::MaterialParamShell)
   mappings=zeros(howmany,mesh.NNode,6)
   mappings_vel=zeros(howmany,mesh.NNode,6)
   mappings_modal=zeros(howmany,info.neig)
@@ -91,7 +91,7 @@ end
 
 
 
-function write_rdyn(info::SSMParam,Cp::Vector{Parametrisation})
+function write_rdyn(info::DPIMParam,Cp::Vector{Parametrisation})
     println("========================================")
     println("Begin write Reduced dynamic equations!")
     println("norm form = ", info.nrom )
@@ -134,9 +134,9 @@ function write_rdyn(info::SSMParam,Cp::Vector{Parametrisation})
   end
 
 """
-write_rdyn_from_complex(info::SSMParam, Cp::Vector{Parametrisation})
+write_rdyn_from_complex(info::DPIMParam, Cp::Vector{Parametrisation})
 """
-function write_rdyn_from_complex(info::SSMParam, Cp::Vector{Parametrisation})
+function write_rdyn_from_complex(info::DPIMParam, Cp::Vector{Parametrisation})
     println("========================================")
     println("Begin write Reduced dynamic equations!")
     println("norm form = ", info.nrom )
@@ -189,9 +189,9 @@ function write_rdyn_from_complex(info::SSMParam, Cp::Vector{Parametrisation})
 end
 
 """
-write_rdyn_with_aliased_conjugates!(info::SSMParam, Cp::Vector{Parametrisation})
+write_rdyn_with_aliased_conjugates!(info::DPIMParam, Cp::Vector{Parametrisation})
 """
-function write_rdyn_with_aliased_conjugates!(info::SSMParam, Cp::Vector{Parametrisation})
+function write_rdyn_with_aliased_conjugates!(info::DPIMParam, Cp::Vector{Parametrisation})
     println("========================================")
     println("Begin write Reduced dynamic equations!")
     println("norm form = ", info.nrom )

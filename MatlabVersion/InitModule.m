@@ -29,9 +29,9 @@ function InitModule(varargin)
         end
     
         switch AnalysisType
-            case 'SSM'
-                addModulePath(thisFolder, 'SSM');
-                addModulePath(thisFolder, 'FEM/FEMSSM');
+            case 'DPIM'
+                addModulePath(thisFolder, 'DPIM');
+                addModulePath(thisFolder, 'FEM/FEMDPIM');
             case 'HB'
                 addModulePath(thisFolder, 'HB');
         end

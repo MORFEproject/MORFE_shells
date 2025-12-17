@@ -1,19 +1,19 @@
-function Cp = Realification(Cp,SSMParams)
+function Cp = Realification(Cp,DPIMParams)
     tic
     disp(['Begin realification process'])
-    for p = 1 : SSMParams.max_order
+    for p = 1 : DPIMParams.max_order
         for i = 1 : Cp{p}.nc
             Avec=Cp{p}.Avector(i,:);
             Ivec=zeros(1,p);
             counter=0;
-            for j = 1 : SSMParams.nrom 
+            for j = 1 : DPIMParams.nrom 
                 Ivec(counter+1:counter+Avec(j)) = j;
                 counter = counter + Avec(j);
             end
             pos = 1;
             coeff = 1.0 + (0.0) * 1i;
             Avec(:) = 0;
-            Cp{p} = recursive_C2R(Ivec,p,pos,i,Avec,coeff,Cp{p},SSMParams);
+            Cp{p} = recursive_C2R(Ivec,p,pos,i,Avec,coeff,Cp{p},DPIMParams);
         end
     end
     varInfo = whos('Cp');
