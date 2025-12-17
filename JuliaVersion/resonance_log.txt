@@ -1,0 +1,8 @@
+Detected: Internal Resonance
+Polynomial Order: 2
+Frequency Check: 2*λ1 ≈ λ2
+
+Detected: Internal Resonance
+Polynomial Order: 2
+Frequency Check: λ1 + conj(λ2) ≈ conj(λ1)
+

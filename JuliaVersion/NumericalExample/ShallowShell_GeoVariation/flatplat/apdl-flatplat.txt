@@ -1,0 +1,117 @@
+FINISH
+/CLEAR
+/prep7
+ET,1,93
+T = 0.01
+MP,EX,1,70e9
+MP,PRXY,1,0.33
+MP,DENS,1,2700
+R,1,T
+
+blc5,0,0,2,1
+ESIZE,0.1
+AMESH,ALL
+nsel,s,loc,x,-1
+d,all,Ux,0
+d,all,Uy,0
+d,all,Uz,0
+!d,all,all,0
+allsel
+
+nsel,s,loc,x,1
+d,all,Ux,0
+d,all,Uy,0
+d,all,Uz,0
+!d,all,all,0
+allsel
+
+finish
+! 进入求解模块
+/solu
+antype,modal  ! 选择模态分析
+modopt,lanb,10  ! 使用 Lanczos 方法求解前10个模态
+mxpand,10,,,YES  ! 展开模态并计算相应的形状
+solve  ! 求解
+FINISH
+
+! 进入后处理模块
+/post1
+SET,list  ! 选择第一个模态步
+
+
+
+
+FINISH
+/CLEAR
+/prep7
+ET,1,93
+T = 0.01
+MP,EX,1,70e9
+MP,PRXY,1,0.33
+MP,DENS,1,2700
+R,1,T
+
+! Geometry creation: a rectangle from (0,0) to (2,1)
+! Length is 2 (along X), Width is 1 (along Y)
+blc5,0,0,2,1
+
+! --- Start of Meshing Control Modification ---
+! Remove or comment out the old global ESIZE command
+! ESIZE,0.09
+
+! Define number of divisions
+NDIV_LENGTH = 24  ! Number of divisions along length (X-direction, total length of 2)
+NDIV_WIDTH  = 10  ! Number of divisions along width (Y-direction, total width of 1)
+
+! Set divisions on lines parallel to the X-axis (length direction)
+! These are the lines at Y=0 and Y=1 for the block defined
+LSEL,S,LOC,Y,-0.5    ! Select line at Y=0 (bottom edge)
+LSEL,A,LOC,Y,0.5    ! Add line at Y=1 (top edge)
+LESIZE,ALL,,,NDIV_LENGTH  ! Apply NDIV_LENGTH divisions to selected lines
+
+! Set divisions on lines parallel to the Y-axis (width direction)
+! These are the lines at X=0 and X=2 for the block defined
+LSEL,S,LOC,X,-1    ! Select line at X=0 (left edge)
+LSEL,A,LOC,X,1    ! Add line at X=2 (right edge)
+LESIZE,ALL,,,NDIV_WIDTH   ! Apply NDIV_WIDTH divisions to selected lines
+
+ALLSEL,ALL        ! Reselect all entities to ensure the area is available for meshing
+
+! Use mapped meshing with quadrilateral elements for precise control
+MSHAPE,0,2D       ! 0 for quadrilateral elements, 2D for area meshing
+MSHKEY,1          ! Key for mapped meshing (1=mapped, 0=free)
+
+! Mesh the area
+! AMESH,ALL will mesh all currently selected areas. Since blc5 created Area 1, it will be meshed.
+AMESH,ALL
+! --- End of Meshing Control Modification ---
+
+! Boundary Conditions (original, with a note on X-coordinates)
+! Note: For blc5,0,0,2,1, X coordinates range from 0 to 2.
+! Left edge is at X=0. Right edge is at X=2.
+nsel,s,loc,x,-1  ! Selects nodes at X=0 (modified from -1 for clarity, assuming left edge)
+d,all,Ux,0
+d,all,Uy,0
+d,all,Uz,0
+allsel
+
+! Note: Original script selected nodes at X=1. If the right edge (X=2) was intended:
+! nsel,s,loc,x,2
+nsel,s,loc,x,1  ! Original selection: nodes at X=1
+d,all,Ux,0
+d,all,Uy,0
+d,all,Uz,0
+allsel
+finish
+
+! 进入求解模块
+/solu
+antype,modal  ! 选择模态分析
+modopt,lanb,10  ! 使用 Lanczos 方法求解前10个模态
+mxpand,10,,,YES  ! 展开模态并计算相应的形状
+solve  ! 求解
+FINISH
+
+! 进入后处理模块
+/post1
+SET,list  ! 选择第一个模态步

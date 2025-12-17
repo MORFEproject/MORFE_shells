@@ -1,0 +1,59 @@
+FINISH
+/CLEAR
+/prep7
+ET,1,93
+T = 0.01
+MP,EX,1,70e9
+MP,PRXY,1,0.33
+MP,DENS,1,2700
+R,1,T
+
+R = 20.3593
+L = 0.5
+
+PI=ACOS(-1)
+theta = 0.0491
+
+BETA = 2*theta*180/PI
+
+k,1,0,-L,0
+k,2,0,L,0
+k,101,-R*SIN(theta),-L,R*COS(theta)
+k,102,-R*SIN(theta),L,R*COS(theta)
+
+k,201,0,-L,R
+k,202,0,L,R
+l,1,2
+l,101,102
+l,201,202
+AROTAT,2,,,,,,1,2,BETA,4
+
+! AROTAT,3,,,,,,1,2,BETA/2,8
+ESIZE,0.1
+AMESH,ALL
+nsel,s,loc,x,-1
+d,all,Ux,0
+d,all,Uy,0
+d,all,Uz,0
+!d,all,all,0
+allsel
+
+nsel,s,loc,x,1
+d,all,Ux,0
+d,all,Uy,0
+d,all,Uz,0
+!d,all,all,0
+allsel
+
+finish
+! 进入求解模块
+/solu
+antype,modal  ! 选择模态分析
+modopt,lanb,10  ! 使用 Lanczos 方法求解前10个模态
+mxpand,10,,,YES  ! 展开模态并计算相应的形状
+solve  ! 求解
+FINISH
+
+! 进入后处理模块
+/post1
+SET,list  ! 选择第一个模态步
